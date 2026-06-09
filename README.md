@@ -11,9 +11,9 @@
 
 This repository contains the full source code for a TFG (Bachelor's Thesis) on automated dermoscopic skin lesion analysis. The system combines three components:
 
-1. **Lesion segmentation** — U-Net++ with EfficientNet-B5 encoder trained on ISIC 2018
-2. **Eight-class classification** — EfficientNet-B4 trained on ISIC 2019, with a controlled comparison between classification on original images (Model A) and segmentation-masked images (Model B)
-3. **LLM-based explanation generation** — conversational diagnostic prototype connecting the trained models to Claude via the Model Context Protocol (MCP)
+1. **Lesion segmentation**: U-Net++ with EfficientNet-B5 encoder trained on ISIC 2018
+2. **Eight-class classification**: EfficientNet-B4 trained on ISIC 2019, with a controlled comparison between classification on original images (Model A) and segmentation-masked images (Model B)
+3. **LLM-based explanation generation**: conversational diagnostic prototype connecting the trained models to Claude via the Model Context Protocol (MCP)
 
 
 ## Repository Structure
@@ -21,14 +21,14 @@ This repository contains the full source code for a TFG (Bachelor's Thesis) on a
 ```
 tfg-skin-lesion/
 │
-├── segmentation_training.py       # Train U-Net++ segmentation model
-├── segmentation_evaluation.py     # Evaluate segmentation model + qualitative analysis
+├── segmentation_training.py #Train U-Net++ segmentation model
+├── segmentation_evaluation.py #Evaluate segmentation model + qualitative analysis
 │
-├── classification_training.py     # Train EfficientNet-B4 classification models (A and B)
-├── classification_evaluation.py   # Evaluate models + TTA + McNemar + threshold tuning
+├── classification_training.py #Train EfficientNet-B4 classification models (A and B)
+├── classification_evaluation.py #Evaluate models + TTA + McNemar + threshold tuning
 │
-├── models.py                      # MCP server model loader (predict function)
-├── server.py                      # MCP server exposing analyze_skin_lesion tool
+├── models.py #MCP server model loader (predict function)
+├── server.py #MCP server exposing analyze_skin_lesion tool
 │
 └── README.md
 ```
@@ -37,8 +37,8 @@ tfg-skin-lesion/
 
 This project uses two publicly available ISIC datasets. They are **not included** in this repository and must be downloaded separately.
 
-**ISIC 2018 — Segmentation**
-- Training images + masks: https://challenge.isic-archive.com/landing/2018/
+**ISIC 2018 for Segmentation**
+- Training images + masks: [https://challenge.isic-archive.com/landing/2018/](https://challenge.isic-archive.com/data/#2018)
 - Official test set: same link above
 - Expected paths:
   - `/workspace/datasets/ISIC2018/images/ISIC2018_Task1-2_Training_Input/`
@@ -46,8 +46,8 @@ This project uses two publicly available ISIC datasets. They are **not included*
   - `/workspace/datasets/ISIC2018/images/ISIC2018_Task1-2_Test_Input/`
   - `/workspace/datasets/ISIC2018/masks/ISIC2018_Task1_Test_GroundTruth/`
 
-**ISIC 2019 — Classification**
-- Training images + labels: https://challenge.isic-archive.com/landing/2019/
+**ISIC 2019 for Classification**
+- Training images + labels: [https://challenge.isic-archive.com/landing/2019/](https://challenge.isic-archive.com/data/#2019)
 - Official test set + labels: same link above
 - Expected paths:
   - `/workspace/datasets/ISIC2019/images/ISIC_2019_Training_Input/`
@@ -82,20 +82,20 @@ Trained on a RunPod cloud instance with NVIDIA RTX A5000 (24 GB VRAM).
 ### 1. Segmentation
 
 ```bash
-# Train
+#Train
 python segmentation_training.py
 
-# Evaluate
+#Evaluate
 python segmentation_evaluation.py
 ```
 
 ### 2. Classification
 
 ```bash
-# Train (requires unet_best.pth in /workspace/)
+#Train (requires unet_best.pth in /workspace/)
 python classification_training.py
 
-# Evaluate (requires trained .pth models)
+#Evaluate (requires trained .pth models)
 python classification_evaluation.py
 ```
 
@@ -138,8 +138,9 @@ Then place a dermoscopic image path in Claude Desktop and ask for an analysis.
 | Macro F1 | 0.395 | 0.410 | **0.469** |
 | Macro AUC-ROC | 0.887 | 0.892 | — |
 
-Model A consistently outperformed Model B (segmentation-masked) across all metrics.  
-McNemar test: χ²=9.28, p=0.002 — difference is statistically significant.
+
+Model A consistently outperformed Model B (segmentation-masked) across all metrics. Model B baseline achieved 44.63% accuracy, 52.79% balanced accuracy, and 0.380 macro F1.
+McNemar test: χ²=9.28, p=0.002, so difference is statistically significant.
 
 ---
 
