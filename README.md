@@ -6,7 +6,6 @@
 **Degree:** Biomedical Engineering  
 **Year:** 2026
 
----
 
 ## Overview
 
@@ -16,7 +15,6 @@ This repository contains the full source code for a TFG (Bachelor's Thesis) on a
 2. **Eight-class classification** — EfficientNet-B4 trained on ISIC 2019, with a controlled comparison between classification on original images (Model A) and segmentation-masked images (Model B)
 3. **LLM-based explanation generation** — conversational diagnostic prototype connecting the trained models to Claude via the Model Context Protocol (MCP)
 
----
 
 ## Repository Structure
 
@@ -34,7 +32,6 @@ tfg-skin-lesion/
 │
 └── README.md
 ```
----
 
 ## Datasets
 
@@ -58,7 +55,6 @@ This project uses two publicly available ISIC datasets. They are **not included*
   - `/workspace/datasets/ISIC2019/labels/ISIC_2019_Training_GroundTruth.csv`
   - `/workspace/datasets/ISIC2019/labels/ISIC_2019_Test_GroundTruth.csv`
 
----
 
 ## Trained Models
 
@@ -70,7 +66,6 @@ The trained model weights are **not included** in this repository due to file si
 | `efficientnet_A_original.pth` | Best EfficientNet-B4 Model A checkpoint |
 | `efficientnet_B_masked.pth` | Best EfficientNet-B4 Model B checkpoint |
 
----
 
 ## Requirements
 
@@ -81,7 +76,6 @@ pip install torch torchvision segmentation-models-pytorch \
 
 Trained on a RunPod cloud instance with NVIDIA RTX A5000 (24 GB VRAM).
 
----
 
 ## How to Run
 
@@ -122,7 +116,6 @@ Requires Claude Desktop with MCP support. Add the following to your Claude Deskt
 
 Then place a dermoscopic image path in Claude Desktop and ask for an analysis.
 
----
 
 ## Results
 
